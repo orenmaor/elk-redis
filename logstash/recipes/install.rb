@@ -13,3 +13,7 @@ service "logstash" do
   action :enable
   supports :status => true, :start => true, :stop => true, :restart => true
 end
+
+execute "chown_messages" do
+  command "chmod 775 /var/log/messages" 
+end
