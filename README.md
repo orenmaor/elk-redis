@@ -58,6 +58,20 @@ TCP Port      Source
 80 (HTTP)     sg-xxxxxxx (ID of the Kibana Load Balancer Security Group)
 ```
 
+Create a `Redis Load Balancer` security group that will allow traffic to the Redis load balancer
+
+```
+TCP Port     Source
+--------     ------
+6379 (TCP)   0.0.0.0/0
+```
+Create a `Redis Internal` security group that will allow traffic from the Redis load balancer
+
+```
+TCP Port     Source
+--------     ------
+6379 (TCP)   sg-xxxxxx (ID of the Redis Load Balancer)
+```
 
 #### Create Elasticsearch Load Balancer
 
@@ -85,6 +99,33 @@ Ping Path: /
 **Security Groups:**
 ```
 Security Group ID: sg-xxxxxxxxx (Kibana Load Balancer)
+```
+
+Next, we want to be able to put an ELB in front of our Logstash array. We'll create an ELB in our VPC; Redis will be accessible from the outside only with a password
+
+In the EC2 dashboard, create a new ELB
+```
+Load Balancer Name: <name>
+```
+
+**Listener Configuration:**
+```
+TCP 6379 -> TCP 6379
+```
+**Configuration Options:**
+```
+Ping Protocol: TCP
+Ping Port: 6379
+Ping Path: /
+```
+**Selected Subnets:**
+
+
+* select all of the subnets you created in your VPC
+
+**Security Groups:**
+```
+Security Group ID: sg-xxxxxxxxx (Redis Load Balancer)
 ```
 
 ### IAM Setup
