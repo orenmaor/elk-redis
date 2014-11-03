@@ -87,12 +87,6 @@ Ping Path: /
 Security Group ID: sg-xxxxxxxxx (Kibana Load Balancer)
 ```
 
-## SQS Setup
-
-If you're planning on using Amazon's SQS as a "broker" between log producers and Elasticsearch, you'll need to configure a queue for this purpose and IAM users to read and write from the queue.
-
-You can just use default values when creating a queue. Make a note of the ARN of your new queue.
-
 ### IAM Setup
 
 Create IAM Roles and Instance Profiles. Also in IAM, create a Role called `logstash-elasticsearch-instance` with the policy below:
@@ -141,10 +135,6 @@ On the OpsWorks dashboard, select "Add Stack". Most default values are fine (or 
     "kibana": {
         "username": "<REPLACE WITH KIBANA USERNAME>",
         "password": "<REPLACE WITH KIBANA PASSWORD>"
-    },
-    "logstash": {
-        "sqs_queue" : "<REPLACE ME NAME OF SQS QUEUE(NOT URL/ARN)>",
-        "sqs_region" : "<REPLACE ME WITH SQS REGION>"
     },
     "redis": {
 	"password" : "<REPLACE WITH REDIS PASSWORD>"
