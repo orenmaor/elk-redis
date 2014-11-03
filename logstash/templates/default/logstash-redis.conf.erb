@@ -5,7 +5,6 @@ input {
     threads => 10
     data_type => "list"
     key => "logstash"
-    format => "json_event"
     password => "<%= node[:redis][:password] %>"
   }
 }
