@@ -189,7 +189,7 @@ On the OpsWorks dashboard, select "Add Stack". Most default values are fine (or 
 
 ![elasticsearch/kibana recipes](https://s3.amazonaws.com/sturdy-github/orenmaor/elk/Recipe-ElasticSearch.png)
 
-#### Logstash
+#### Logstash/Redis
 
 ![logstash recipes](https://s3.amazonaws.com/sturdy-github/orenmaor/elk/Recipe-Logstash-redis.png)
 
@@ -201,7 +201,7 @@ On the OpsWorks dashboard, select "Add Stack". Most default values are fine (or 
 
 ![elasticsearch/kibana elb](https://s3.amazonaws.com/sturdy-github/orenmaor/elk/KibanaLB.png)
 
-### Configure ELB - Logstash/Redisa 
+### Configure ELB - Logstash/Redis 
 
 ![elasticsearch/kibana elb](https://s3.amazonaws.com/sturdy-github/orenmaor/elk/RedisLB.png)
 

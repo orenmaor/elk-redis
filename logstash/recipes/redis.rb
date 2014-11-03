@@ -7,6 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "redis"
 include_recipe "logstash::install"
 
 template "/etc/logstash/conf.d/logstash.conf" do
