@@ -3,7 +3,7 @@
 This is a bunch of cookbooks that will allow you to run a complete Logstash setup on a scalable 
 [AWS OpsWorks](http://aws.amazon.com/opsworks/) stack. 
 
-- Agents wil ship their logs to SQS and the Logstash server cluster uses it as an input source.
+- Agents wil ship their logs to Redis and the Logstash server cluster uses it as an input source.
 - An ElasticSearch/Kibana cluster layer (Amazon Linux) – All log messages are stored and indexed here.  Viewable on an Angular.js interface on top of ElasticSearch to search, graph etc.
 - A LogStash cluster layer (Amazon Linux) – Takes the messages from the RabbitMQ fanout and puts them into ElasticSearch.
 
@@ -95,29 +95,6 @@ You can just use default values when creating a queue. Make a note of the ARN of
 
 ### IAM Setup
 
-Create `logstash-writer` the policy below: Generate an Access Key and make a note of it, for clients.
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "Stmt1389301427000",
-      "Effect": "Allow",
-      "Action": [
-        "sqs:SendMessage",
-        "sqs:GetQueueAttributes",
-        "sqs:GetQueueUrl",
-        "sqs:ListQueues"
-      ],
-      "Resource": [
-        "{ARN of your queue, eg. arn:aws:sqs:us-east-1:000000000:logstash}"
-      ]
-    }
-  ]
-}
-```
-
 Create IAM Roles and Instance Profiles. Also in IAM, create a Role called `logstash-elasticsearch-instance` with the policy below:
 
 ```json
@@ -132,21 +109,6 @@ Create IAM Roles and Instance Profiles. Also in IAM, create a Role called `logst
       ],
       "Resource": [
         "*"
-      ]
-    },
-    {
-      "Sid": "Stmt1389733069000",
-      "Effect": "Allow",
-      "Action": [
-        "sqs:ChangeMessageVisibility",
-        "sqs:DeleteMessage",
-        "sqs:GetQueueAttributes",
-        "sqs:GetQueueUrl",
-        "sqs:ListQueues",
-        "sqs:ReceiveMessage"
-      ],
-      "Resource": [
-        "{ARN of your queue, eg. arn:aws:sqs:us-east-1:000000000:logstash}"
       ]
     }
   ]
@@ -183,6 +145,9 @@ On the OpsWorks dashboard, select "Add Stack". Most default values are fine (or 
     "logstash": {
         "sqs_queue" : "<REPLACE ME NAME OF SQS QUEUE(NOT URL/ARN)>",
         "sqs_region" : "<REPLACE ME WITH SQS REGION>"
+    },
+    "redis": {
+	"password" : "<REPLACE WITH REDIS PASSWORD>"
     }
 }
 ```
@@ -194,7 +159,7 @@ On the OpsWorks dashboard, select "Add Stack". Most default values are fine (or 
 
 #### Logstash
 
-![logstash recipes](https://s3.amazonaws.com/sturdy-github/orenmaor/elk/Recipe-Logstash.png)
+![logstash recipes](https://s3.amazonaws.com/sturdy-github/orenmaor/elk/Recipe-Logstash-redis.png)
 
 ### Configure EBS Volumes - ElasticSearch/Kibana (Optional)
 
