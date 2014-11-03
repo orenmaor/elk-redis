@@ -4,6 +4,7 @@ service "elasticsearch" do
 end
 
 include_recipe "elasticsearch::ec2"
+include_recipe "elasticsearch::plugins"
 
 template "/etc/elasticsearch/elasticsearch.yml" do
   source "etc/elasticsearch/elasticsearch-logstash.yml.erb"
