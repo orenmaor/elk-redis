@@ -18,8 +18,8 @@ end
 
 template "/etc/redis.conf" do
   source "redis.conf.erb"
-  owner "root"
-  group "root"
+  owner "redis"
+  group "redis"
   mode 0640
   notifies :restart, "service[redis]", :delayed
 end
