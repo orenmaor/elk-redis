@@ -15,3 +15,11 @@ service "redis" do
   action :enable
   supports :status => true, :start => true, :stop => true, :restart => true
 end
+
+template "/etc/redis.conf" do
+  source "redis.conf.erb"
+  owner "root"
+  group "root"
+  mode 0640
+  notifies :restart, "service[redis]", :delayed
+end
