@@ -101,6 +101,7 @@ Ping Path: /
 Security Group ID: sg-xxxxxxxxx (Kibana Load Balancer)
 ```
 
+#### Create Redis Load Balancer
 Next, we want to be able to put an ELB in front of our Logstash array. We'll create an ELB in our VPC; Redis will be accessible from the outside only with a password
 
 In the EC2 dashboard, create a new ELB
